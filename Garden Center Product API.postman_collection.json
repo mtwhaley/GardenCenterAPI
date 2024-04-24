@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "b9f16335-aa55-409a-898f-3f67b4a9b5c3",
+		"name": "Garden Center Product API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34257468"
+	},
+	"item": [
+		{
+			"name": "empty list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "returns an empty list with a 200 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "create product 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\": 123456,\r\n    \"type\": \"some type\",\r\n    \"name\": \"product 1\",\r\n    \"description\": \"some description\",\r\n    \"manufacturer\": \"some manufacturer\",\r\n    \"price\": \"1.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "creates a product with a unique sku and returns the created product (with id) and a 201 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "create product 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\": 456789,\r\n    \"type\": \"some other type\",\r\n    \"name\": \"product 2\",\r\n    \"description\": \"some other description\",\r\n    \"manufacturer\": \"some other manufacturer\",\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "creates a product with a unique sku and returns the created product (with id) and a 201 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "list of products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "returns a list containing all products with a 200 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "product with valid id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/products/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"1"
+					]
+				},
+				"description": "returns the product with the specified id and a 200 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "product with invalid id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/products/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"3"
+					]
+				},
+				"description": "returns an error with a 404 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "product with duplicate sku",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\": 456789,\r\n    \"type\": \"some other type\",\r\n    \"name\": \"product 3\",\r\n    \"description\": \"some other description\",\r\n    \"manufacturer\": \"some other manufacturer\",\r\n    \"price\": \"3.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "Attempts to create a product with the same sku as product 2. Returns an error with a 409 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "invalid product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sku\": 111111,\r\n    \"type\": \"some other type\",\r\n    \"name\": \"product 2\",\r\n    \"description\": \"some other description\",\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products"
+					]
+				},
+				"description": "Attempts to create an invalid product (missing the manufacturer field). Returns an error with a 400 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "update product 2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"sku\": 456789,\r\n    \"type\": \"some new type\",\r\n    \"name\": \"product 2 version 2\",\r\n    \"description\": \"some new description\",\r\n    \"manufacturer\": \"some new manufacturer\",\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"2"
+					]
+				},
+				"description": "Updates the type, name, description, and manufacturer fields of product 2. Returns the updated product with a 200 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "update invalid id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"sku\": 456789,\r\n    \"type\": \"some new type\",\r\n    \"name\": \"product 2 version 2\",\r\n    \"description\": \"some new description\",\r\n    \"manufacturer\": \"some new manufacturer\",\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"4"
+					]
+				},
+				"description": "Attempts to update a product with an id which does not exist in the database. Returns an error with a 404 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "update with duplicate sku",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"sku\": 123456,\r\n    \"type\": \"some new type\",\r\n    \"name\": \"product 2 version 2\",\r\n    \"description\": \"some new description\",\r\n    \"manufacturer\": \"some new manufacturer\",\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"2"
+					]
+				},
+				"description": "Attempts to update the sku of product 2 to match the sku of product 1. Returns an error with a 409 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "update with invalid product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"sku\": 456789,\r\n    \"type\": \"some new type\",\r\n    \"name\": \"product 2 version 2\",\r\n    \"description\": \"some new description\",\r\n    \"manufacturer\": null,\r\n    \"price\": \"2.99\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/products/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"2"
+					]
+				},
+				"description": "Attempts to update a product to be invalid (manufacturer set to null). Returns an error with a 400 status code."
+			},
+			"response": []
+		},
+		{
+			"name": "delete product 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8085/products/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"products",
+						"2"
+					]
+				},
+				"description": "Deletes the product with the specified id. Returns a 204 status code."
+			},
+			"response": []
+		}
+	]
+}
